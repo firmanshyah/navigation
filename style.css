@@ -13,19 +13,105 @@ body {
   align-items: center;
   min-height: 100vh;
   background: #161616;
+  /* background: #ffff; */
+}
+
+.navbar {
+  background-color: #fff;
+  height: 80px;
+  margin: 20px;
+  border-radius: 16px;
+  padding: 0.5rem;
+}
+
+.navbar-brand {
+  font-weight: 500;
+  color: #009970;
+  font-size: 24px;
+  transition: 0.3s color;
+}
+
+.login-button {
+  background-color: aqua;
+  border: 1px solid aqua;
+  color: #242424;
+  font-size: 14px;
+  padding: 8px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: 0.3s background-color;
+}
+
+.login-button:hover {
+  color: aqua;
+  background-color: transparent;
+  border: 1px solid aqua;
+}
+
+.navbar-toggler {
+  border: none;
+  font-size: 1.25rem;
+}
+
+.navbar-toggler:focus,
+.btn-close:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.nav-link {
+  color: #666777;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #000;
 }
 
 ul {
   display: none;
 }
 
+.hero {
+  /* background: url() no-repeat center; */
+  /* background-size: cover; */
+  /* background-color: #fff; */
+  width: 100%;
+  height: 100vh;
+}
+
 @media (min-width: 992px) {
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #009970;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+  }
+
+  .nav-link:hover::before,
+  .nav-link.active::before {
+    width: 100%;
+    visibility: visible;
+  }
+
   ul {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+
   ul {
     position: fixed;
     bottom: 25px;
@@ -83,6 +169,7 @@ ul {
     border-top: 2px solid aqua;
     border-left: 2px solid aqua;
     box-shadow: 0 0 0 10px #161616, 0 2px 0 9px aqua;
+    /* box-shadow: 0 0 0 10px #fff, 0 2px 0 9px aqua; */
     transition: 0.5s;
   }
 
@@ -95,7 +182,8 @@ ul {
     height: 20px;
     background: transparent;
     border-top-right-radius: 20px;
-    box-shadow: 4px -4px 0 4px #161616;
+    /* box-shadow: 4px -4px 0 4px #161616; */
+    /* box-shadow: 4px -4px 0 3px transparent; */
   }
 
   #marker::after {
@@ -107,7 +195,8 @@ ul {
     height: 20px;
     background: transparent;
     border-top-left-radius: 20px;
-    box-shadow: -4px -4px 0 4px #161616;
+    /* box-shadow: -4px -4px 0 4px #161616; */
+    /* box-shadow: -4px -4px 0 3px #fff; */
   }
 
   #marker span {
@@ -118,6 +207,7 @@ ul {
     height: 30px;
     background: #014166;
     box-shadow: 0 0 0 10px #161616, 0 -2px 0 9px aqua;
+    /* box-shadow: 0 0 0 10px #fff, 0 -2px 0 9px aqua; */
     border-radius: 20px;
     border-right: 1px solid aqua;
     border-bottom: 1px solid aqua;
