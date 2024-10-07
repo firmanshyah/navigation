@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #161616;
+}
+
+ul {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  ul {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  ul {
+    position: fixed;
+    bottom: 25px;
+    /* left: 0;
+    right: 0; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 60px;
+    background: #242424;
+    border-radius: 30px;
+  }
+
+  ul li {
+    list-style: none;
+  }
+
+  ul li a {
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    z-index: 10000;
+    color: #444;
+  }
+
+  ul li a ion-icon {
+    font-size: 2.5rem;
+    transition: 0.5s;
+    pointer-events: none;
+  }
+
+  ul li:hover a ion-icon {
+    color: aqua;
+    filter: drop-shadow(0 0 15px aqua);
+  }
+
+  ul li.active a ion-icon {
+    color: aqua;
+    filter: drop-shadow(0 0 15px aqua);
+    transform: translateY(-50px);
+  }
+
+  #marker {
+    position: absolute;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    background: #014166;
+    border-radius: 20px;
+    border-top: 2px solid aqua;
+    border-left: 2px solid aqua;
+    box-shadow: 0 0 0 10px #161616, 0 2px 0 9px aqua;
+    transition: 0.5s;
+  }
+
+  #marker::before {
+    content: "";
+    position: absolute;
+    top: 29px;
+    left: -30px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 4px -4px 0 4px #161616;
+  }
+
+  #marker::after {
+    content: "";
+    position: absolute;
+    top: 29px;
+    right: -30px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-left-radius: 20px;
+    box-shadow: -4px -4px 0 4px #161616;
+  }
+
+  #marker span {
+    position: absolute;
+    top: 122px;
+    width: 120%;
+    left: -10%;
+    height: 30px;
+    background: #014166;
+    box-shadow: 0 0 0 10px #161616, 0 -2px 0 9px aqua;
+    border-radius: 20px;
+    border-right: 1px solid aqua;
+    border-bottom: 1px solid aqua;
+  }
+
+  ul li text {
+    position: absolute;
+    pointer-events: none;
+    transform: translateY(50px);
+    opacity: 0;
+    font-size: 0.8em;
+    transition: 0.5s;
+    text-transform: uppercase;
+  }
+
+  ul li.active text {
+    opacity: 1;
+    color: aqua;
+    filter: drop-shadow(0 0 10px aqua);
+  }
+}
+
+@media (max-width: 576px) {
+  ul {
+    padding: 5px 30px;
+    bottom: 35px;
+    border-radius: 20px;
+  }
+
+  ul li a {
+    width: 50px;
+    height: 50px;
+  }
+
+  ul li a ion-icon {
+    font-size: 1.8rem;
+  }
+
+  ul li.active a ion-icon {
+    transform: translateY(-35px);
+  }
+
+  #marker {
+    width: 50px;
+    height: 50px;
+    top: -30px;
+  }
+
+  #marker::before {
+    top: 0;
+  }
+
+  #marker::after {
+    top: 0;
+  }
+
+  #marker span {
+    top: 80px;
+    height: 25px;
+  }
+
+  ul li text {
+    font-size: 0.6em;
+    transform: translateY(35px);
+  }
+}
