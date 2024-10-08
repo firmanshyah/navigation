@@ -1,20 +1,39 @@
 let marker = document.querySelector("#marker");
 let list = document.querySelectorAll("ul li");
 
-function moveIndicator(e) {
-  marker.style.left = e.offsetLeft + "px";
-  marker.style.width = e.offsetWidth + "px";
+// Fungsi untuk memindahkan indikator sesuai elemen aktif
+function moveIndicator(element) {
+  const offsetLeft = element.offsetLeft;
+  const offsetWidth = element.offsetWidth;
+
+  marker.style.left = offsetLeft + "px";
+  marker.style.width = offsetWidth + "px";
 }
 
-list.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    moveIndicator(e.target);
-  });
+// Fungsi untuk menandai elemen aktif
+function activelink(e) {
+  list.forEach((item) => item.classList.remove("active"));
+  e.currentTarget.classList.add("active");
+  moveIndicator(e.currentTarget); // Pindahkan indikator
+}
+
+// Tambahkan event listener untuk setiap elemen pada list
+list.forEach((item) => {
+  item.addEventListener("click", activelink);
 });
 
-function activelink() {
-  list.forEach((item) => item.classList.remove("active"));
-  this.classList.add("active");
-}
+// Pastikan indikator menyesuaikan saat layar di-resize
+window.addEventListener("resize", () => {
+  const activeItem = document.querySelector("ul li.active");
+  if (activeItem) {
+    moveIndicator(activeItem);
+  }
+});
 
-list.forEach((item) => item.addEventListener("click", activelink));
+// Posisikan indikator pada elemen aktif saat halaman dimuat pertama kali
+window.addEventListener("DOMContentLoaded", () => {
+  const activeItem = document.querySelector("ul li.active");
+  if (activeItem) {
+    moveIndicator(activeItem);
+  }
+});
