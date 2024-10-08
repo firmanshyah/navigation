@@ -14,6 +14,11 @@ function moveIndicator(element) {
 function activelink(e) {
   list.forEach((item) => item.classList.remove("active"));
   e.currentTarget.classList.add("active");
+
+  // Simpan index elemen aktif ke localStorage
+  const index = Array.from(list).indexOf(e.currentTarget);
+  localStorage.setItem("activeItem", index);
+
   moveIndicator(e.currentTarget); // Pindahkan indikator
 }
 
@@ -21,6 +26,23 @@ function activelink(e) {
 list.forEach((item) => {
   item.addEventListener("click", activelink);
 });
+
+// Fungsi untuk mengatur elemen aktif dari localStorage
+function setActiveFromLocalStorage() {
+  const savedIndex = localStorage.getItem("activeItem");
+
+  if (savedIndex !== null && list[savedIndex]) {
+    list.forEach((item) => item.classList.remove("active"));
+    list[savedIndex].classList.add("active");
+    moveIndicator(list[savedIndex]);
+  } else {
+    // Jika tidak ada data di localStorage, gunakan elemen dengan class "active" default
+    const activeItem = document.querySelector("ul li.active");
+    if (activeItem) {
+      moveIndicator(activeItem);
+    }
+  }
+}
 
 // Pastikan indikator menyesuaikan saat layar di-resize
 window.addEventListener("resize", () => {
@@ -31,12 +53,7 @@ window.addEventListener("resize", () => {
 });
 
 // Posisikan indikator pada elemen aktif saat halaman dimuat pertama kali
-window.addEventListener("DOMContentLoaded", () => {
-  const activeItem = document.querySelector("ul li.active");
-  if (activeItem) {
-    moveIndicator(activeItem);
-  }
-});
+window.addEventListener("DOMContentLoaded", setActiveFromLocalStorage);
 
 // let marker = document.querySelector("#marker");
 // let list = document.querySelectorAll("ul li");
