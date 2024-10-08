@@ -74,39 +74,41 @@
     </nav>
 
     <!-- Tablet/HP -->
-    <ul>
-      <li>
-        <a href="#account">
-          <ion-icon name="person"></ion-icon>
-          <text>Account</text>
-        </a>
-      </li>
-      <li>
-        <a href="#create">
-          <ion-icon name="add-circle"></ion-icon>
-          <text>Create</text>
-        </a>
-      </li>
-      <li class="active">
-        <a href="#home">
-          <ion-icon name="home"></ion-icon>
-          <text>Home</text>
-        </a>
-      </li>
-      <li>
-        <a href="#settings">
-          <ion-icon name="settings"></ion-icon>
-          <text>Settings</text>
-        </a>
-      </li>
-      <li>
-        <a href="#chats">
-          <ion-icon name="chatbox-ellipses"></ion-icon>
-          <text>Chats</text>
-        </a>
-      </li>
-      <div id="marker"><span></span></div>
-    </ul>
+    <div class="mobile-menu">
+      <ul>
+        <li>
+          <a href="#account">
+            <ion-icon name="person"></ion-icon>
+            <text>Account</text>
+          </a>
+        </li>
+        <li>
+          <a href="#create">
+            <ion-icon name="add-circle"></ion-icon>
+            <text>Create</text>
+          </a>
+        </li>
+        <li class="active">
+          <a href="#home">
+            <ion-icon name="home"></ion-icon>
+            <text>Home</text>
+          </a>
+        </li>
+        <li>
+          <a href="#settings">
+            <ion-icon name="settings"></ion-icon>
+            <text>Settings</text>
+          </a>
+        </li>
+        <li>
+          <a href="#chats">
+            <ion-icon name="chatbox-ellipses"></ion-icon>
+            <text>Chats</text>
+          </a>
+        </li>
+        <div id="marker"><span></span></div>
+      </ul>
+    </div>
 
     <section class="hero" id="home"></section>
 
@@ -139,29 +141,6 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-
-    <!-- <script>
-      let marker = document.querySelector("#marker");
-      let list = document.querySelectorAll("ul li");
-
-      function moveIndicator(e) {
-        marker.style.left = e.offsetLeft + "px";
-        marker.style.width = e.offsetWidth + "px";
-      }
-
-      list.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          moveIndicator(e.target);
-        });
-      });
-
-      function activelink() {
-        list.forEach((item) => item.classList.remove("active"));
-        this.classList.add("active");
-      }
-
-      list.forEach((item) => item.addEventListener("click", activelink));
-    </script> -->
 
     <script src="script.js"></script>
   </body>

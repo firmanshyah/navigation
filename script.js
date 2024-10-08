@@ -1,114 +1,79 @@
-let marker = document.querySelector("#marker");
-let list = document.querySelectorAll("ul li");
+document.addEventListener("DOMContentLoaded", function () {
+  const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
+  const mobileLinks = document.querySelectorAll(".mobile-menu li a");
+  const marker = document.querySelector("#marker");
 
-// Fungsi untuk memindahkan indikator sesuai elemen aktif
-function moveIndicator(element) {
-  const offsetLeft = element.offsetLeft;
-  const offsetWidth = element.offsetWidth;
+  // Fungsi untuk menggerakkan marker mengikuti elemen yang aktif
+  function moveMarker(targetElement) {
+    marker.style.left = targetElement.offsetLeft + "px";
+    marker.style.width = targetElement.offsetWidth + "px";
+  }
 
-  marker.style.left = offsetLeft + "px";
-  marker.style.width = offsetWidth + "px";
-}
+  // Fungsi untuk mengatur kelas active dan sinkronisasi antara navbar dan mobile-menu
+  function setActive(link, fromNavbar = true) {
+    // Hapus kelas active dari semua elemen
+    navbarLinks.forEach((item) => item.classList.remove("active"));
+    mobileLinks.forEach((item) =>
+      item.parentElement.classList.remove("active")
+    );
 
-// Fungsi untuk menandai elemen aktif
-function activelink(e) {
-  list.forEach((item) => item.classList.remove("active"));
-  e.currentTarget.classList.add("active");
+    if (fromNavbar) {
+      // Tambah kelas active pada elemen navbar yang dipilih
+      link.classList.add("active");
 
-  // Simpan index elemen aktif ke localStorage
-  const index = Array.from(list).indexOf(e.currentTarget);
-  localStorage.setItem("activeItem", index);
+      // Sinkronisasi dengan mobile-menu
+      const targetId = link.getAttribute("href");
+      const mobileLink = [...mobileLinks].find(
+        (mobile) => mobile.getAttribute("href") === targetId
+      );
 
-  moveIndicator(e.currentTarget); // Pindahkan indikator
-}
+      if (mobileLink) {
+        mobileLink.parentElement.classList.add("active"); // Set li pada mobile-menu aktif
+        moveMarker(mobileLink.parentElement); // Pindahkan marker ke li yang aktif
+      }
+    } else {
+      // Tambah kelas active pada elemen mobile yang dipilih
+      link.parentElement.classList.add("active");
 
-// Tambahkan event listener untuk setiap elemen pada list
-list.forEach((item) => {
-  item.addEventListener("click", activelink);
-});
+      // Sinkronisasi dengan navbar
+      const targetId = link.getAttribute("href");
+      const navbarLink = [...navbarLinks].find(
+        (navbar) => navbar.getAttribute("href") === targetId
+      );
 
-// Fungsi untuk mengatur elemen aktif dari localStorage
-function setActiveFromLocalStorage() {
-  const savedIndex = localStorage.getItem("activeItem");
+      if (navbarLink) {
+        navbarLink.classList.add("active"); // Set nav-link pada navbar aktif
+      }
 
-  if (savedIndex !== null && list[savedIndex]) {
-    list.forEach((item) => item.classList.remove("active"));
-    list[savedIndex].classList.add("active");
-    moveIndicator(list[savedIndex]);
-  } else {
-    // Jika tidak ada data di localStorage, gunakan elemen dengan ID #home sebagai default
-    const homeItem = document.querySelector("ul li#home");
-    if (homeItem) {
-      homeItem.classList.add("active");
-      moveIndicator(homeItem);
+      moveMarker(link.parentElement); // Pindahkan marker ke li yang aktif
     }
   }
-}
 
-// Pastikan indikator menyesuaikan saat layar di-resize
-window.addEventListener("resize", () => {
-  const activeItem = document.querySelector("ul li.active");
-  if (activeItem) {
-    moveIndicator(activeItem);
+  // Event listener untuk klik pada navbar links
+  navbarLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      setActive(this, true); // Sinkronisasi dari navbar ke mobile-menu
+    });
+  });
+
+  // Event listener untuk klik pada mobile links
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      setActive(this, false); // Sinkronisasi dari mobile-menu ke navbar
+    });
+  });
+
+  // Set marker untuk elemen yang aktif pertama kali saat halaman dimuat
+  const activeLink = document.querySelector(".mobile-menu li.active a");
+  if (activeLink) {
+    moveMarker(activeLink.parentElement);
   }
+
+  // Update posisi marker ketika window di-resize agar tetap sinkron
+  window.addEventListener("resize", function () {
+    const activeElement = document.querySelector(".mobile-menu li.active a");
+    if (activeElement) {
+      moveMarker(activeElement.parentElement); // Pindahkan marker ke elemen aktif saat resize
+    }
+  });
 });
-
-// Posisikan indikator pada elemen aktif saat halaman dimuat pertama kali
-window.addEventListener("DOMContentLoaded", setActiveFromLocalStorage);
-
-// let marker = document.querySelector("#marker");
-// let list = document.querySelectorAll("ul li");
-
-// // Fungsi untuk memindahkan indikator sesuai elemen aktif
-// function moveIndicator(element) {
-//   const offsetLeft = element.offsetLeft;
-//   const offsetWidth = element.offsetWidth;
-
-//   marker.style.left = offsetLeft + "px";
-//   marker.style.width = offsetWidth + "px";
-// }
-
-// // Fungsi untuk menandai elemen aktif
-// function activelink(e) {
-//   list.forEach((item) => item.classList.remove("active"));
-//   e.currentTarget.classList.add("active");
-
-//   // Simpan index elemen aktif ke localStorage
-//   const index = Array.from(list).indexOf(e.currentTarget);
-//   localStorage.setItem("activeItem", index);
-
-//   moveIndicator(e.currentTarget); // Pindahkan indikator
-// }
-
-// // Tambahkan event listener untuk setiap elemen pada list
-// list.forEach((item) => {
-//   item.addEventListener("click", activelink);
-// });
-
-// // Fungsi untuk mengatur elemen aktif dari localStorage
-// function setActiveFromLocalStorage() {
-//   const savedIndex = localStorage.getItem("activeItem");
-
-//   if (savedIndex !== null && list[savedIndex]) {
-//     list.forEach((item) => item.classList.remove("active"));
-//     list[savedIndex].classList.add("active");
-//     moveIndicator(list[savedIndex]);
-//   } else {
-//     // Jika tidak ada data di localStorage, gunakan elemen dengan class "active" default
-//     const activeItem = document.querySelector("ul li.active");
-//     if (activeItem) {
-//       moveIndicator(activeItem);
-//     }
-//   }
-// }
-
-// // Pastikan indikator menyesuaikan saat layar di-resize
-// window.addEventListener("resize", () => {
-//   const activeItem = document.querySelector("ul li.active");
-//   if (activeItem) {
-//     moveIndicator(activeItem);
-//   }
-// });
-
-// // Posisikan indikator pada elemen aktif saat halaman dimuat pertama kali
-// window.addEventListener("DOMContentLoaded", setActiveFromLocalStorage);
