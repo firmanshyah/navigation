@@ -36,10 +36,11 @@ function setActiveFromLocalStorage() {
     list[savedIndex].classList.add("active");
     moveIndicator(list[savedIndex]);
   } else {
-    // Jika tidak ada data di localStorage, gunakan elemen dengan class "active" default
-    const activeItem = document.querySelector("ul li.active");
-    if (activeItem) {
-      moveIndicator(activeItem);
+    // Jika tidak ada data di localStorage, gunakan elemen dengan ID #home sebagai default
+    const homeItem = document.querySelector("ul li#home");
+    if (homeItem) {
+      homeItem.classList.add("active");
+      moveIndicator(homeItem);
     }
   }
 }
